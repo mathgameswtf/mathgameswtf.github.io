@@ -42,6 +42,7 @@
   .hero p.sub{max-width:560px;margin:22px auto 38px;color:var(--nord4);font-size:1.1rem}
 
   .btns{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+  .games-btns{display: flex;margin-top: 20%;}
   .btn{display:inline-flex;align-items:center;justify-content:center;min-width:150px;padding:14px 28px;border-radius:12px;
     font-weight:700;font-size:1.02rem;background:var(--nord10);color:var(--nord6);border:1px solid transparent;
     transition:transform .15s,background .2s,border-color .2s}
