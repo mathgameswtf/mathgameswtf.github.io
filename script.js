@@ -31,19 +31,5 @@
 })();
 
 addEventListener('keydown',function(e){
-  if(e.key==='`'||e.code==='Backquote'){e.preventDefault();location.replace('https://www.google.com/');}
-});
-
-// Navbar Up & Down Controls
-var navbar=document.getElementById('navbar');
-var upBtn=document.getElementById('upBtn');
-var downBtn=document.getElementById('downBtn');
-
-if(navbar && upBtn && downBtn){
-  upBtn.addEventListener('click',function(){
-    navbar.classList.add('nav-hidden');
+    if(e.key==='`'||e.code==='Backquote'){e.preventDefault();location.replace('https://www.google.com/');}
   });
-  downBtn.addEventListener('click',function(){
-    navbar.classList.remove('nav-hidden');
-  });
-}
