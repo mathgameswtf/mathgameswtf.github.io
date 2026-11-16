@@ -1,0 +1,30 @@
+name: Start Codespace and Run Server
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch: # Allows manual testing from the Actions tab
+
+jobs:
+  start-and-serve:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.CS_TOKEN }}
+      CODESPACE_NAME: super-duper-waffle-g4g456vxvwg729p79
+
+    steps:
+      - name: Start Codespace and run Node server
+        run: |
+          # Connects to your existing codespace (waking it up if stopped)
+          # Automatically navigates to your repository folder inside /workspaces/
+          gh codespace ssh -c "$CODESPACE_NAME" -- "
+            cd /workspaces/${{ github.event.repository.name }} &&
+            if ! pgrep -f 'node dist/server.js' > /dev/null; then
+              nohup node dist/server.js > server.log 2>&1 < /dev/null &
+              sleep 3
+            fi
+          "
+
+      - name: Make port 8080 public
+        run: |
+          gh codespace ports visibility 8080:public -c "$CODESPACE_NAME"
