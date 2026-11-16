@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ secrets.CS_TOKEN }}
-      CODESPACE_NAME: super-duper-waffle-g4g456vxvwg729p79
+      CODESPACE_NAME: effective-space-cod-q7w7965v5r9pf4gwq
 
     steps:
       - name: Start Codespace and run Node server
