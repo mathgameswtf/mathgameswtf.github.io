@@ -13,10 +13,31 @@ jobs:
       CODESPACE_NAME: solid-funicular-v6x6gwjpj5xjc45x
 
     steps:
-      - name: Start Codespace
+      - name: Start codespace and wait until available
         run: |
-          gh api -X POST /user/codespaces/$CODESPACE_NAME/start
+          state=$(gh api /user/codespaces/$CODESPACE_NAME --jq .state)
+          if [ "$state" != "Available" ]; then
+            gh api -X POST /user/codespaces/$CODESPACE_NAME/start >/dev/null
+          fi
+          for i in $(seq 1 40); do
+            state=$(gh api /user/codespaces/$CODESPACE_NAME --jq .state)
+            echo "state: $state"
+            [ "$state" = "Available" ] && exit 0
+            sleep 10
+          done
+          echo "Codespace never became Available"; exit 1
+
+      - name: Ensure server is running
+        run: |
+          gh codespace ssh -c "$CODESPACE_NAME" -- 'bash "$(ls -d /workspaces/*/ | head -1).devcontainer/start-server.sh"'
 
       - name: Ensure port 8080 is public
         run: |
-          gh codespace ports visibility 8080:public -c "$CODESPACE_NAME"
+          for i in $(seq 1 20); do
+            if gh codespace ports visibility 8080:public -c "$CODESPACE_NAME"; then
+              exit 0
+            fi
+            echo "Port not ready, retrying..."
+            sleep 15
+          done
+          echo "Port 8080 never appeared"; exit 1
