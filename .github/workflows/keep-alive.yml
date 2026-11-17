@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ secrets.CS_TOKEN }}
-      CODESPACE_NAME: effective-space-cod-q7w7965v5r9pf4gwq
+      CODESPACE_NAME: solid-funicular-v6x6gwjpj5xjc45x
 
     steps:
       - name: Start Codespace
