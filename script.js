@@ -27,7 +27,7 @@
     if(!still)requestAnimationFrame(draw);
   }
   size();draw();
-  var t;addEventListener('resize',function(){clearTimeout(t);t=setTimeout(function(){size();if(still)draw();},150)});
+  var t;addEventListener('resize',function(){clearTimeout(t);t=setTimeout(function(){size();if(still)draw();},1500)});
 })();
 
 addEventListener('keydown',function(e){
